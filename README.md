@@ -8,4 +8,5 @@ Replace the 'baseurl' with any tumblr blog url, notice the **'/page'** in the en
 Todo
 ------
 1.Add video download function;
-2.Try multithreading
+
+2.Try multithreading;
