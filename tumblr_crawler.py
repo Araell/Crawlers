@@ -8,8 +8,20 @@ import urllib2
 
 urlopen = urllib2.urlopen
 request = urllib2.Request
-baseurl = "http://lizclimo.tumblr.com/page/"
-imgdir = 'imgs/lizclimo/'
+baseurl = "http://girlimg-legs.tumblr.com/page/"
+imgdir = 'imgs/girlimg-legs/'
+
+# http_proxy = "http://localhost:8123"
+# http_proxys = {'http': http_proxy}
+
+
+# def install_proxy():
+#     if use_proxy == False:
+#         return
+#     proxy_support = urllib.request.ProxyHandler({"http": http_proxy})
+#     opener = urllib.request.build_opener(proxy_support)
+#     urllib.request.install_opener(opener)
+#     return
 
 
 def get_content_from_url(url):  # 从url中读取页面内容
@@ -29,11 +41,7 @@ def get_content_from_url(url):  # 从url中读取页面内容
 def extract_img_urls(content):  # 从页面内容中抓出所有图片链接
     imgs = re.findall('img src=\"(http[^\"]+)\"', content, re.M | re.S)
     imgs = set(imgs)
-    if len(imgs) <= 0:
-        return 1
-    for img in imgs:
-        down_img(img)
-        return -1
+    return imgs
 
 
 def get_binary_from_req(req):  # 从请求中获取binary数据
@@ -53,7 +61,11 @@ def get_binary_from_req(req):  # 从请求中获取binary数据
 
 def down_img(img_url):  # 下载图片
     try:
-        filename = re.search('tumblr_.*\.(jpg|png|gif|tiff)', img_url).group()
+        match_result = re.search('tumblr_.*\.(jpg|png|gif|tiff)', img_url)
+        if match_result == None:
+            # filter avatar img
+            return
+        filename = match_result.group()
     except Exception, e:
         print e
         return
@@ -78,18 +90,37 @@ def down_img(img_url):  # 下载图片
         print(e)
 
 
+class downImgThread(threading.Thread):
+    imgset = None
+
+    def __init__(self, imgset):
+        threading.Thread.__init__(self)
+        self.imgset = imgset
+
+    def run(self):
+        for img_url in self.imgset:
+            down_img(img_url)
+
+
 def main():
-    cur_page = 27
+    cur_page = 1
+    if not os.path.exists(imgdir):
+        os.makedirs(imgdir)
 
     while True:
-        print 'crawl page', cur_page
+        print '==crawl page', cur_page
         content = get_content_from_url(baseurl + str(cur_page))
-        print 'page ' + str(cur_page) + ' complete'
-        is_end = extract_img_urls(content)
-        if is_end == 1:
+        imgset = extract_img_urls(content)
+        if len(imgset) == 0:
             print '-----------end-----------'
             break
         else:
+            print '==open thread for download page ', cur_page
+            downThread = downImgThread(imgset)
+            downThread.start()
             cur_page = cur_page + 1
 
 main()
+# video file
+# https://www.tumblr.com/video_file/134865539253/tumblr_nz3r6v6faJ1usvyma
+# https://vt.tumblr.com/tumblr_nz3r6v6faJ1usvyma.mp4#_=_
