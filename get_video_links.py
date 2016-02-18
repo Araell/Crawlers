@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# get_page_content
+# usage : python get_video_links.py BLOGNAME
 import urllib2
 import re
 import sys
