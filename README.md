@@ -3,10 +3,6 @@ A tumblr crawler using **urllib2**.
 
 Instruction
 -------------
-Replace the 'baseurl' with any tumblr blog url, notice the **'/page'** in the end of url. 
-
-Todo
-------
-1.Add video download function;
-
-~~2.Try multithreading;~~
+## get_video_links.py
+usage: python get_video_links.py BLOGNAME
+This will generate a new file named 'BLOGNAME.txt' to record all the video links from the tumblr blog.
