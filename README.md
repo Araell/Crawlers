@@ -13,7 +13,7 @@ usage: python tumblr_image_crawler.py BLOGNAME
 This will generate a new file named 'BLOGNAME_img_links.txt' to record all the image links from the tumblr blog.
 
 ## echo（回声） crawler
-Crawl audio sources from of http://www.app-echo.com/.  
+Crawl audio sources of http://www.app-echo.com/.  
 
 ### create_cookie.py
 Create cookie for visiting channle page.
