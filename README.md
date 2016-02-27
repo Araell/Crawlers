@@ -16,11 +16,11 @@ This will generate a new file named 'BLOGNAME_img_links.txt' to record all the i
 Crawl audio sources of http://www.app-echo.com/.  
 
 ### create_cookie.py
-Create cookie for visiting channle page.
+Create cookie for visiting channel page.
 
 ### crawl_channel_posts.py
 Crawl all the post links of a echo channel.
 
 ### echo_crawler.py
-Download audio resources.
+Download audio resource.
 
