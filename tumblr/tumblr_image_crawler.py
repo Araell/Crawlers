@@ -48,7 +48,7 @@ def extract_img_urls(content):  # 从页面内容中抓出所有图片链接
     return imgs
 
 
-# 停用
+# deprecated
 def down_img(img_url):  # 下载图片
     try:
         match_result = re.search('tumblr_.*\.(jpg|png|gif|tiff)', img_url)
@@ -75,7 +75,7 @@ def down_img(img_url):  # 下载图片
             print(e)
 
 
-# 停用
+# deprecated
 class downImgThread(threading.Thread):
     imgset = None
 
